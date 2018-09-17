@@ -7,9 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 try:
-    from PyQt4 import QtGui,QtCore
+    from PyQt5 import QtGui,QtCore,QtWidgets
 except ImportError:
-    from PySide import QtGui,QtCore
+    from PySide2 import QtGui,QtCore,QtWidgets
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -18,12 +18,12 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QtWidgets.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QtWidgets.QApplication.translate(context, text, disambig)
 
 class Ui_Manual(object):
     def setupUi(self, Manual):
@@ -31,10 +31,10 @@ class Ui_Manual(object):
         Manual.resize(740, 450)
         Manual.setMinimumSize(QtCore.QSize(740, 450))
         Manual.setMaximumSize(QtCore.QSize(740, 450))
-        self.textBrowser = QtGui.QTextBrowser(Manual)
+        self.textBrowser = QtWidgets.QTextBrowser(Manual)
         self.textBrowser.setGeometry(QtCore.QRect(10, 40, 721, 371))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
-        self.label = QtGui.QLabel(Manual)
+        self.label = QtWidgets.QLabel(Manual)
         self.label.setGeometry(QtCore.QRect(10, 10, 271, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))

@@ -22,11 +22,11 @@ import webbrowser
 import subprocess
 import multiprocessing
 try:
-    from PyQt4 import QtGui,QtCore
-    from PyQt4.QtGui import*
+    from PyQt5 import QtGui,QtCore,QtWidgets
+    from PyQt5.QtGui import*
 except ImportError:
-    from PySide import QtGui,QtCore
-    from PySide.QtGui import*
+    from PySide2 import QtGui,QtCore,QtWidgets
+    from PySide2.QtGui import*
 from datetime import datetime
 from Frameworks import Ui_BioNanoAnalyst
 from About import Ui_About
@@ -44,9 +44,9 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import  NavigationToolbar2QT as NavigationToolbar
 #=======================================================================================
 
-class Main(QtGui.QMainWindow):
+class Main(QtWidgets.QMainWindow):
     def __init__(self, parent = None):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.ui = Ui_BioNanoAnalyst()
         self.ui.setupUi(self)
         self.ref = None
@@ -66,19 +66,19 @@ class Main(QtGui.QMainWindow):
         self.axes = None
         self.canvas = None
         self.canvas_ctg = None
-        self.ref_table = QtGui.QTableWidget()
-        self.unqualified_table = QtGui.QTableWidget()
-        self.qualified_table = QtGui.QTableWidget()
-        self.BN_table = QtGui.QTableWidget()
-        self.unmapped_table = QtGui.QTableWidget()
-        self.mapped_table = QtGui.QTableWidget()
-        self.filtered_table = QtGui.QTableWidget()
-        self.no_data_table = QtGui.QTableWidget()
-        self.missing_table = QtGui.QTableWidget()
-        self.good_table = QtGui.QTableWidget()
-        self.site_p_table = QtGui.QTableWidget()
-        self.pos_p_table = QtGui.QTableWidget()
-        self.both_table = QtGui.QTableWidget()
+        self.ref_table = QtWidgets.QTableWidget()
+        self.unqualified_table = QtWidgets.QTableWidget()
+        self.qualified_table = QtWidgets.QTableWidget()
+        self.BN_table = QtWidgets.QTableWidget()
+        self.unmapped_table = QtWidgets.QTableWidget()
+        self.mapped_table = QtWidgets.QTableWidget()
+        self.filtered_table = QtWidgets.QTableWidget()
+        self.no_data_table = QtWidgets.QTableWidget()
+        self.missing_table = QtWidgets.QTableWidget()
+        self.good_table = QtWidgets.QTableWidget()
+        self.site_p_table = QtWidgets.QTableWidget()
+        self.pos_p_table = QtWidgets.QTableWidget()
+        self.both_table = QtWidgets.QTableWidget()
         #==================== menubar ====================
         self.ui.actionNew.setShortcut('Ctrl+N')
         self.ui.actionClose.setShortcut('Ctrl+Q')
@@ -127,7 +127,7 @@ class Main(QtGui.QMainWindow):
         self.ui.show_rsp_bn.clicked.connect(self.show_site_p)
         self.ui.show_pp_bn.clicked.connect(self.show_pos_p)
         self.ui.show_both_bn.clicked.connect(self.show_both)
-        self.clip = QtGui.QApplication.clipboard()
+        self.clip = QtWidgets.QApplication.clipboard()
         #==================== mapping status panel ===================
         self.ui.save_select_bn.clicked.connect(self.save_select)
         self.ui.save_clear_bn.clicked.connect(self.save_clear)
@@ -143,9 +143,9 @@ class Main(QtGui.QMainWindow):
         window.show()
 
     def quit(self):
-        response=QtGui.QMessageBox.question(self, 'Warning !', 'Do you want to close the appliction?',
-        QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        if response == QtGui.QMessageBox.Yes:
+        response=QtWidgets.QMessageBox.question(self, 'Warning !', 'Do you want to close the appliction?',
+        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if response == QtWidgets.QMessageBox.Yes:
             sys.exit()
 
     def about(self):
@@ -161,11 +161,11 @@ class Main(QtGui.QMainWindow):
 
     def select_ref(self):
         if sys.platform == 'win32':
-            ref = QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)')
+            ref = QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)')
             self.ref=codecs.decode(str(ref)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.ref_input.setText(self.ref)
         else:
-            self.ref = unicode(QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)'))
+            self.ref = unicode(QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)'))
             self.ui.ref_input.setText(self.ref)
 
     def clear_ref(self):
@@ -177,8 +177,8 @@ class Main(QtGui.QMainWindow):
             if sys.platform =='win32':
                 self.ui.raw_frame.setEnabled(False)
                 self.ui.aligned_checkBox.setEnabled(False)
-                QtGui.QMessageBox.question(self, 'Warning !', 'Currently Option 1 is only available in Linux and MacOS system !',
-                    QtGui.QMessageBox.Ok)
+                QtWidgets.QMessageBox.question(self, 'Warning !', 'Currently Option 1 is only available in Linux and MacOS system !',
+                    QtWidgets.QMessageBox.Ok)
             else:
                 self.ui.raw_frame.setEnabled(True)
                 self.ui.aligned_checkBox.setEnabled(False)
@@ -191,11 +191,11 @@ class Main(QtGui.QMainWindow):
 
     def select_bnx(self):
         if sys.platform == 'win32':
-            bnx = QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)')
+            bnx = QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)')
             self.bnx = codecs.decode(str(bnx)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.raw_input.setText(self.bnx)
         else:
-            self.bnx = unicode(QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)'))
+            self.bnx = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)'))
             self.ui.raw_input.setText(self.bnx)
 
     def clear_bnx(self):
@@ -207,7 +207,7 @@ class Main(QtGui.QMainWindow):
         self.parameters_window.show()
 
     def raw_start(self):
-        if QtGui.QMessageBox.Ok not in [self.handle_ref_error(), self.handle_bnx_error(), self.handle_settings_error()]:
+        if QtWidgets.QMessageBox.Ok not in [self.handle_ref_error(), self.handle_bnx_error(), self.handle_settings_error()]:
             try:
                 self.ui.raw_status_label.setStyleSheet('color: blue')
                 self.ui.raw_status_label.setText('Running...')
@@ -226,7 +226,7 @@ class Main(QtGui.QMainWindow):
                 self.ui.raw_status_label.setText('Crashed !')
                 self.ui.raw_status_label.repaint()
                 qApp.processEvents()
-                QtGui.QMessageBox.question(self, 'Error !', 'Something is wrong, please check the error messages!',QtGui.QMessageBox.Ok)
+                QtWidgets.QMessageBox.question(self, 'Error !', 'Something is wrong, please check the error messages!',QtWidgets.QMessageBox.Ok)
 
 
     def enable_aligned(self):
@@ -239,11 +239,11 @@ class Main(QtGui.QMainWindow):
 
     def select_xmap(self):
         if sys.platform == 'win32':
-            xmap = QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)')
+            xmap = QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)')
             self.xmap = codecs.decode(str(xmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.xmap_input.setText(self.xmap)
         else:
-            self.xmap = unicode(QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)'))
+            self.xmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)'))
             self.ui.xmap_input.setText(self.xmap)
 
     def clear_xmap(self):
@@ -252,11 +252,11 @@ class Main(QtGui.QMainWindow):
 
     def select_rcmap(self):
         if sys.platform == 'win32':
-            rcmap = QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)')
+            rcmap = QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)')
             self.rcmap = codecs.decode(str(rcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.rcmap_input.setText(self.rcmap)
         else:
-            self.rcmap = unicode(QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)'))
+            self.rcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)'))
             self.ui.rcmap_input.setText(self.rcmap)
 
     def clear_rcmap(self):
@@ -265,11 +265,11 @@ class Main(QtGui.QMainWindow):
 
     def select_qcmap(self):
         if sys.platform == 'win32':
-            qcmap = QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)')
+            qcmap = QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)')
             self.qcmap = codecs.decode(str(qcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.qcmap_input.setText(self.qcmap)
         else:
-            self.qcmap = unicode(QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)'))
+            self.qcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)'))
             self.ui.qcmap_input.setText(self.qcmap)
 
     def clear_qcmap(self):
@@ -347,7 +347,7 @@ class Main(QtGui.QMainWindow):
         self.canvas_ctg.show()
 
     def save_select(self):
-        self.output_path = unicode(QFileDialog.getExistingDirectory())
+        self.output_path = unicode(QtWidgets.QFileDialog.getExistingDirectory())
         self.ui.save_input.setText(self.output_path)
     def save_clear(self):
         self.ui.save_input.clear()
@@ -365,9 +365,9 @@ class Main(QtGui.QMainWindow):
                 fig_name = fig_name.replace('\\','/')
             self.ctg_figure.savefig(fig_name)
         except AttributeError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please select a contig !',QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please select a contig !',QtWidgets.QMessageBox.Ok)
         except IOError:
-            QtGui.QMessageBox.question(self, 'Error !', 'Please select an output path !',QtGui.QMessageBox.Ok)
+            QtWidgets.QMessageBox.question(self, 'Error !', 'Please select an output path !',QtWidgets.QMessageBox.Ok)
 
     def save_all_figurs(self):
         try:
@@ -420,9 +420,9 @@ class Main(QtGui.QMainWindow):
                 fig.clf()
                 plt.close()
         except IOError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please select an output loaction !',QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please select an output loaction !',QtWidgets.QMessageBox.Ok)
         except AttributeError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please check the contig(s) !',QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the contig(s) !',QtWidgets.QMessageBox.Ok)
 
     def save_qlt(self):
         try:
@@ -464,9 +464,9 @@ class Main(QtGui.QMainWindow):
                     i+=1
             self.running.paired.to_csv(os.path.join(path,name_all),sep='\t', index=False)
         except IOError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please select an output loaction !',QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please select an output loaction !',QtWidgets.QMessageBox.Ok)
         except AttributeError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'No report can be saved !',QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'No report can be saved !',QtWidgets.QMessageBox.Ok)
 
     def handle_ref_error(self):
         try:
@@ -475,59 +475,59 @@ class Main(QtGui.QMainWindow):
                     for i in range(2):
                         line=f.next().strip()
                         if i == 0 and line[0]!='>':
-                            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your input reference !',
-                            QtGui.QMessageBox.Ok)
+                            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your input reference !',
+                            QtWidgets.QMessageBox.Ok)
                         if i == 1 and len(re.findall("[^ATGCN]", line.upper()))>0:
-                            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your input reference !',
-                            QtGui.QMessageBox.Ok)
+                            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your input reference !',
+                            QtWidgets.QMessageBox.Ok)
             else:
-                return QtGui.QMessageBox.question(self, 'Warning !', 'The selected reference file is empty, please check !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Warning !', 'The selected reference file is empty, please check !',
+                QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a reference file !',
-            QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a reference file !',
+            QtWidgets.QMessageBox.Ok)
 
     def handle_bnx_error(self):
         try:
             if os.stat(self.bnx).st_size == 0:
-                return QtGui.QMessageBox.question(self, 'Warning !', 'The selected bnx file is empty, please check !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Warning !', 'The selected bnx file is empty, please check !',
+                QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a .bnx file !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a .bnx file !', QtWidgets.QMessageBox.Ok)
 
     def handle_settings_error(self):
         try:
             self.settings = self.parameters_window.parameters
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your settings !',
-            QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your settings !',
+            QtWidgets.QMessageBox.Ok)
 
     def handle_xmap_error(self):
         try:
             if os.stat(self.xmap).st_size == 0:
-                return QtGui.QMessageBox.question(self, 'Warning !', 'The selected xmap file is empty, please check !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Warning !', 'The selected xmap file is empty, please check !',
+                QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a .xmap file !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a .xmap file !', QtWidgets.QMessageBox.Ok)
 
     def handle_rcmap_error(self):
         try:
             if os.stat(self.rcmap).st_size == 0:
-                return QtGui.QMessageBox.question(self, 'Warning !', 'The selected _r.cmap file is empty, please check !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Warning !', 'The selected _r.cmap file is empty, please check !',
+                QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a _r.cmap file !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a _r.cmap file !', QtWidgets.QMessageBox.Ok)
 
     def handle_qcmap_error(self):
         try:
             if os.stat(self.qcmap).st_size == 0:
-                return QtGui.QMessageBox.question(self, 'Warning !', 'The selected _q.cmap file is empty, please check !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Warning !', 'The selected _q.cmap file is empty, please check !',
+                QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a _q.cmap file !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a _q.cmap file !', QtWidgets.QMessageBox.Ok)
 
     def corresponding_check(self):
-        if QtGui.QMessageBox.Ok not in [self.handle_xmap_error(), self.handle_rcmap_error(), self.handle_qcmap_error()]:
+        if QtWidgets.QMessageBox.Ok not in [self.handle_xmap_error(), self.handle_rcmap_error(), self.handle_qcmap_error()]:
             self.files = dict()
             self.files['xmap'] = self.xmap
             with open (self.xmap) as xmap:
@@ -542,61 +542,61 @@ class Main(QtGui.QMainWindow):
                             line = line.split()[-1].rsplit('/',1)[-1]
                             rcmap = self.rcmap.rsplit('/',1)[-1]
                             if line != rcmap:
-                                return QtGui.QMessageBox.question(self, 'Error !', 'Rcmap file name in Xmap file is not the one you select !',
-                                QtGui.QMessageBox.Ok)
+                                return QtWidgets.QMessageBox.question(self, 'Error !', 'Rcmap file name in Xmap file is not the one you select !',
+                                QtWidgets.QMessageBox.Ok)
                             else:
                                 self.files['rcmap'] = self.rcmap
                         except:
-                            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your xmap file !', QtGui.QMessageBox.Ok)
+                            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your xmap file !', QtWidgets.QMessageBox.Ok)
                     if line.startswith('# Query Maps From:'):
                         try:
                             line = line.split()[-1]
                             line = line.rsplit('/',1)[-1]
                             qcmap = self.qcmap.rsplit('/',1)[-1]
                             if line != qcmap:
-                                return QtGui.QMessageBox.question(self, 'Error !', 'Qcmap file name in Xmap file is not the one you select !',
-                                 QtGui.QMessageBox.Ok)
+                                return QtWidgets.QMessageBox.question(self, 'Error !', 'Qcmap file name in Xmap file is not the one you select !',
+                                 QtWidgets.QMessageBox.Ok)
                             else:
                                 self.files['qcmap'] = self.qcmap
                         except:
-                            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your xmap file !', QtGui.QMessageBox.Ok)
+                            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your xmap file !', QtWidgets.QMessageBox.Ok)
 
     def handle_cs_error(self):
         cs = self.ui.cs_input.text()
         try:
             self.cs = float(cs)
             if self.cs < 0:
-                return QtGui.QMessageBox.question(self, 'Error !', 'Please input a confidence score >=0',
-                 QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a confidence score >=0',
+                 QtWidgets.QMessageBox.Ok)
         except ValueError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please input a confidence score >=0',
-            QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a confidence score >=0',
+            QtWidgets.QMessageBox.Ok)
 
     def handle_O1(self):
-        if QtGui.QMessageBox.Ok in [self.handle_bnx_error(), self.handle_settings_error()]:
+        if QtWidgets.QMessageBox.Ok in [self.handle_bnx_error(), self.handle_settings_error()]:
             return False
         else:
             return True
 
     def handle_O2(self):
-        if QtGui.QMessageBox.Ok in [self.handle_xmap_error(), self.handle_rcmap_error(), self.handle_qcmap_error()]:
+        if QtWidgets.QMessageBox.Ok in [self.handle_xmap_error(), self.handle_rcmap_error(), self.handle_qcmap_error()]:
             return False
         else:
             return True
 
     def analyse(self):
-        if QtGui.QMessageBox.Ok not in [self.handle_ref_error()]:
+        if QtWidgets.QMessageBox.Ok not in [self.handle_ref_error()]:
             pass
         else:
             return
-        if QtGui.QMessageBox.Ok not in [self.handle_cs_error()]:
+        if QtWidgets.QMessageBox.Ok not in [self.handle_cs_error()]:
             pass
         else:
             return
         if self.ui.raw_checkBox.isChecked():
             if sys.platform == 'win32':
-                return QtGui.QMessageBox.question(self, 'Error !', 'Currently Option 1 is not available in Windows !',
-                QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Error !', 'Currently Option 1 is not available in Windows !',
+                QtWidgets.QMessageBox.Ok)
             if self.handle_O1()== True:
                 try:
                     if os.path.exists(self.xmap) and os.path.exists(self.rcmap) and os.path.exists(self.qcmap):
@@ -664,8 +664,8 @@ class Main(QtGui.QMainWindow):
                         except AttributeError:
                             return
                 except:
-                    QtGui.QMessageBox.question(self, 'Error !', 'BioNano optical mapping from option 1 is incomplete, please check !',
-                    QtGui.QMessageBox.Ok)
+                    QtWidgets.QMessageBox.question(self, 'Error !', 'BioNano optical mapping from option 1 is incomplete, please check !',
+                    QtWidgets.QMessageBox.Ok)
 
         if self.ui.aligned_checkBox.isChecked():
             if self.handle_O2()== True:
@@ -734,8 +734,8 @@ class Main(QtGui.QMainWindow):
                 except AttributeError:
                     return
         if not self.ui.raw_checkBox.isChecked() and not self.ui.aligned_checkBox.isChecked():
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please select Option 1 or Option 2 and fill it !',
-            QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please select Option 1 or Option 2 and fill it !',
+            QtWidgets.QMessageBox.Ok)
 
     def show_ref(self):
         try:
@@ -1022,9 +1022,9 @@ def create_dummy_line(**kwds):
 
 
 
-class Settings(QtGui.QWidget):
+class Settings(QtWidgets.QWidget):
     def __init__(self):
-        QtGui.QWidget.__init__(self)
+        QtWidgets.QWidget.__init__(self)
         self.ui = Ui_Settings()
         self.ui.setupUi(self)
         self.tools_path = None
@@ -1050,7 +1050,7 @@ class Settings(QtGui.QWidget):
         self.ui.setting_confirm_frame.rejected.connect(self.cancel)
 
     def select_tools_path(self):
-        self.tools_path = unicode(QFileDialog.getExistingDirectory())
+        self.tools_path = unicode(QtWidgets.QFileDialog.getExistingDirectory())
         self.ui.tools_location_input.setText(self.tools_path)
 
     def clear_tools_path(self):
@@ -1058,7 +1058,7 @@ class Settings(QtGui.QWidget):
         self.tools_path = None
 
     def select_scripts_path(self):
-        self.scripts_path = unicode(QFileDialog.getExistingDirectory())
+        self.scripts_path = unicode(QtWidgets.QFileDialog.getExistingDirectory())
         self.ui.scripts_location_input.setText(self.scripts_path)
 
     def clear_scripts_path(self):
@@ -1067,7 +1067,7 @@ class Settings(QtGui.QWidget):
 
 
     def select_output_path(self):
-        self.output_path = str (QFileDialog.getExistingDirectory())
+        self.output_path = str (QtWidgets.QFileDialog.getExistingDirectory())
         self.ui.output_input.setText(self.output_path)
 
     def clear_output_path(self):
@@ -1080,61 +1080,61 @@ class Settings(QtGui.QWidget):
                 assembler = (self.tools_path + '\WindowsAssembler.exe').replace('\\','/')
                 refaligner = (self.tools_path + '\WindowsRefAligner.exe').replace('\\','/')
                 if not (os.path.exists(assembler) and os.path.exists(refaligner)):
-                    return QtGui.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !',
-                    QtGui.QMessageBox.Ok)
+                    return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !',
+                    QtWidgets.QMessageBox.Ok)
                 else:
                     if os.access(assembler, os.X_OK) == False:
-                        return QtGui.QMessageBox.question(self, 'Warning!', 'WindowsAssembler.exe is not executable, please check !',
-                        QtGui.QMessageBox.Ok)
+                        return QtWidgets.QMessageBox.question(self, 'Warning!', 'WindowsAssembler.exe is not executable, please check !',
+                        QtWidgets.QMessageBox.Ok)
                     if os.access(refaligner, os.X_OK) == False:
-                        return QtGui.QMessageBox.question(self, 'Warning!', 'WindowsRefAligner.exe is not executable, please check !',
-                        QtGui.QMessageBox.Ok)
+                        return QtWidgets.QMessageBox.question(self, 'Warning!', 'WindowsRefAligner.exe is not executable, please check !',
+                        QtWidgets.QMessageBox.Ok)
             else:
                 assembler = self.tools_path + '/Assembler'
                 refaligner = self.tools_path + '/RefAligner'
                 if not (os.path.exists(assembler) and os.path.exists(refaligner)):
-                    return QtGui.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !',
-                    QtGui.QMessageBox.Ok)
+                    return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !',
+                    QtWidgets.QMessageBox.Ok)
                 else:
                     if os.access(assembler, os.X_OK) == False:
-                        return QtGui.QMessageBox.question(self, 'Warning!', 'Assembler is not executable, please check !',
-                        QtGui.QMessageBox.Ok)
+                        return QtWidgets.QMessageBox.question(self, 'Warning!', 'Assembler is not executable, please check !',
+                        QtWidgets.QMessageBox.Ok)
                     if  os.access(refaligner, os.X_OK) == False:
-                        return QtGui.QMessageBox.question(self, 'Warning!', 'RefAligner is not executable, please check !',
-                        QtGui.QMessageBox.Ok)
+                        return QtWidgets.QMessageBox.question(self, 'Warning!', 'RefAligner is not executable, please check !',
+                        QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the tool path or tools inside !', QtWidgets.QMessageBox.Ok)
 
     def confirm_scripts_path(self):
         try:
             script1=self.scripts_path+'/pipelineCL.py'
             script2=self.scripts_path+'/Pipeline.py'
             if not (os.path.exists(script1) and os.path.exists(script2)):
-                return QtGui.QMessageBox.question(self, 'Error !', 'Please check the scripts path or scripts inside !',
-                    QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the scripts path or scripts inside !',
+                    QtWidgets.QMessageBox.Ok)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please check the scripts path or scripts inside !',
-                    QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check the scripts path or scripts inside !',
+                    QtWidgets.QMessageBox.Ok)
 
     def confirm_output_path(self):
         try:
             len(self.output_path)
         except:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please select a output path !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please select a output path !', QtWidgets.QMessageBox.Ok)
 
     def confirm_gs(self):
         self.gs= self.ui.gs_input.text()
         try:
             self.gs = float(self.gs)
             if self.gs<=0:
-                return QtGui.QMessageBox.question(self, 'Error !', 'Please input a genome size bigger than 0 !', QtGui.QMessageBox.Ok)
+                return QtWidgets.QMessageBox.question(self, 'Error !', 'Please input a genome size bigger than 0 !', QtWidgets.QMessageBox.Ok)
         except ValueError:
-            return QtGui.QMessageBox.question(self, 'Error !', 'Please check your input genome size !', QtGui.QMessageBox.Ok)
+            return QtWidgets.QMessageBox.question(self, 'Error !', 'Please check your input genome size !', QtWidgets.QMessageBox.Ok)
 
 
 
     def confirm(self):
-        if QtGui.QMessageBox.Ok not in [self.confirm_tool_path(),self.confirm_scripts_path(),self.confirm_gs(),self.confirm_output_path()]:
+        if QtWidgets.QMessageBox.Ok not in [self.confirm_tool_path(),self.confirm_scripts_path(),self.confirm_gs(),self.confirm_output_path()]:
             self.parameters = dict()
             self.parameters['tools_path'] = self.tools_path
             self.parameters['script_path'] = self.scripts_path
@@ -1148,18 +1148,18 @@ class Settings(QtGui.QWidget):
     def cancel(self):
         self.close()
 
-class about(QtGui.QWidget):
+class about(QtWidgets.QWidget):
     def __init__(self):
-        QtGui.QWidget.__init__(self)
+        QtWidgets.QWidget.__init__(self)
         self.ui = Ui_About()
         self.ui.setupUi(self)
         self.ui.about_bn.clicked.connect(self.confirm)
     def confirm(self):
         self.close()
 
-class manual(QtGui.QWidget):
+class manual(QtWidgets.QWidget):
     def __init__(self):
-        QtGui.QWidget.__init__(self)
+        QtWidgets.QWidget.__init__(self)
         self.ui = Ui_Manual()
         self.ui.setupUi(self)
         self.ui.manual_bn.clicked.connect(self.confirm)
@@ -1315,7 +1315,7 @@ class DataCursor(object):
 
 if __name__=="__main__":
     multiprocessing.freeze_support()
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     window = Main()
     window.show()
     sys.exit(app.exec_())

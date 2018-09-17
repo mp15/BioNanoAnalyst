@@ -7,9 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 try:
-    from PyQt4 import QtGui,QtCore
+    from PyQt5 import QtGui,QtCore,QtWidgets
 except ImportError:
-    from PySide import QtGui,QtCore
+    from PySide2 import QtGui,QtCore,QtWidgets
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -18,12 +18,12 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QtWidgets.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QtWidgets.QApplication.translate(context, text, disambig)
 
 class Ui_About(object):
     def setupUi(self, About):
@@ -31,7 +31,7 @@ class Ui_About(object):
         About.resize(378, 342)
         About.setMinimumSize(QtCore.QSize(378, 342))
         About.setMaximumSize(QtCore.QSize(378, 342))
-        self.label = QtGui.QLabel(About)
+        self.label = QtWidgets.QLabel(About)
         self.label.setGeometry(QtCore.QRect(10, 10, 191, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -40,7 +40,7 @@ class Ui_About(object):
         font.setWeight(50)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
-        self.label_2 = QtGui.QLabel(About)
+        self.label_2 = QtWidgets.QLabel(About)
         self.label_2.setGeometry(QtCore.QRect(10, 30, 181, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -49,7 +49,7 @@ class Ui_About(object):
         font.setWeight(50)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.label_3 = QtGui.QLabel(About)
+        self.label_3 = QtWidgets.QLabel(About)
         self.label_3.setGeometry(QtCore.QRect(10, 50, 211, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -57,7 +57,7 @@ class Ui_About(object):
         font.setItalic(False)
         self.label_3.setFont(font)
         self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.label_4 = QtGui.QLabel(About)
+        self.label_4 = QtWidgets.QLabel(About)
         self.label_4.setGeometry(QtCore.QRect(10, 60, 261, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
@@ -65,10 +65,10 @@ class Ui_About(object):
         font.setItalic(False)
         self.label_4.setFont(font)
         self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.textBrowser = QtGui.QTextBrowser(About)
+        self.textBrowser = QtWidgets.QTextBrowser(About)
         self.textBrowser.setGeometry(QtCore.QRect(10, 90, 361, 211))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
-        self.about_bn = QtGui.QPushButton(About)
+        self.about_bn = QtWidgets.QPushButton(About)
         self.about_bn.setGeometry(QtCore.QRect(290, 310, 75, 23))
         self.about_bn.setObjectName(_fromUtf8("about_bn"))
 
