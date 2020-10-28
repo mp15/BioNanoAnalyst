@@ -613,7 +613,7 @@ class Main(QtWidgets.QMainWindow):
                                 self.ui.gridLayout_7.itemAt(items).widget().deleteLater()
                         except:
                                 pass
-                        mapping_status_view=QtGui.QGraphicsView(self.ui.mapping_status_frame)
+                        mapping_status_view=QtWidgets.QGraphicsView(self.ui.mapping_status_frame)
                         self.ui.gridLayout_7.addWidget(mapping_status_view, 0, 0, 1, 1)
                         try:
                             ## Start analysis
@@ -683,7 +683,7 @@ class Main(QtWidgets.QMainWindow):
                         self.ui.gridLayout_7.itemAt(items).widget().setParent(None)
                 except:
                     pass
-                mapping_status_view=QtGui.QGraphicsView(self.ui.mapping_status_frame)
+                mapping_status_view=QtWidgets.QGraphicsView(self.ui.mapping_status_frame)
                 self.ui.gridLayout_7.addWidget(mapping_status_view, 0, 0, 1, 1)
                 try:
                     ## Start analysis
