@@ -188,8 +188,8 @@ class Ui_Settings(object):
         self.assembly_label.setObjectName(_fromUtf8("assembly_label"))
         self.gridLayout_2.addWidget(self.assembly_label, 0, 0, 1, 2)
         self.verticalLayout.addWidget(self.assembly_frame)
-        self.setting_confirm_frame = QtGui.QDialogButtonBox(Settings)
-        self.setting_confirm_frame.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
+        self.setting_confirm_frame = QtWidgets.QDialogButtonBox(Settings)
+        self.setting_confirm_frame.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.setting_confirm_frame.setObjectName(_fromUtf8("setting_confirm_frame"))
         self.verticalLayout.addWidget(self.setting_confirm_frame)
 
