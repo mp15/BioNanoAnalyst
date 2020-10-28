@@ -165,7 +165,7 @@ class Main(QtWidgets.QMainWindow):
             self.ref=codecs.decode(str(ref)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.ref_input.setText(self.ref)
         else:
-            self.ref = unicode(QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)'))
+            self.ref = unicode(QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)')[0])
             self.ui.ref_input.setText(self.ref)
 
     def clear_ref(self):
@@ -195,7 +195,7 @@ class Main(QtWidgets.QMainWindow):
             self.bnx = codecs.decode(str(bnx)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.raw_input.setText(self.bnx)
         else:
-            self.bnx = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)'))
+            self.bnx = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)')[0])
             self.ui.raw_input.setText(self.bnx)
 
     def clear_bnx(self):
@@ -243,7 +243,7 @@ class Main(QtWidgets.QMainWindow):
             self.xmap = codecs.decode(str(xmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.xmap_input.setText(self.xmap)
         else:
-            self.xmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)'))
+            self.xmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)')[0])
             self.ui.xmap_input.setText(self.xmap)
 
     def clear_xmap(self):
@@ -256,7 +256,7 @@ class Main(QtWidgets.QMainWindow):
             self.rcmap = codecs.decode(str(rcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.rcmap_input.setText(self.rcmap)
         else:
-            self.rcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)'))
+            self.rcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)')[0])
             self.ui.rcmap_input.setText(self.rcmap)
 
     def clear_rcmap(self):
@@ -269,7 +269,7 @@ class Main(QtWidgets.QMainWindow):
             self.qcmap = codecs.decode(str(qcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.qcmap_input.setText(self.qcmap)
         else:
-            self.qcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)'))
+            self.qcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)')[0])
             self.ui.qcmap_input.setText(self.qcmap)
 
     def clear_qcmap(self):
