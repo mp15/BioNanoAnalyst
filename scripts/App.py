@@ -211,7 +211,7 @@ class Main(QtWidgets.QMainWindow):
             try:
                 self.ui.raw_status_label.setStyleSheet('color: blue')
                 self.ui.raw_status_label.setText('Running...')
-                qApp.processEvents()
+                QtWidgets.QApplication.processEvents()
                 self.ui.raw_status_label.repaint()
                 self.run_assembler()
                 self.run_refAligner()
@@ -225,7 +225,7 @@ class Main(QtWidgets.QMainWindow):
                 self.ui.raw_status_label.setStyleSheet('color: red')
                 self.ui.raw_status_label.setText('Crashed !')
                 self.ui.raw_status_label.repaint()
-                qApp.processEvents()
+                QtWidgets.QApplication.processEvents()
                 QtWidgets.QMessageBox.question(self, 'Error !', 'Something is wrong, please check the error messages!',QtWidgets.QMessageBox.Ok)
 
 
@@ -622,7 +622,7 @@ class Main(QtWidgets.QMainWindow):
                             ## Emit the running signal
                             self.ui.analyse_status_label.setStyleSheet('color: blue')
                             self.ui.analyse_status_label.setText('Running...')
-                            qApp.processEvents()
+                            QtWidgets.QApplication.processEvents()
                             self.ui.analyse_status_label.repaint()
                             self.running.BioNano_stats()
                             self.running.parse_fasta()
@@ -692,7 +692,7 @@ class Main(QtWidgets.QMainWindow):
                     ## Emit the running signal
                     self.ui.analyse_status_label.setStyleSheet('color: blue')
                     self.ui.analyse_status_label.setText('Running...')
-                    qApp.processEvents()
+                    QtWidgets.QApplication.processEvents()
                     self.ui.analyse_status_label.repaint()
                     self.running.BioNano_stats()
                     self.running.parse_fasta()
