@@ -66,7 +66,7 @@ Biopython ($pip install biopython or http://biopython.org/)
 
 Image ($pip  install Image)
 
-PyQt5 or PySide2 (https://www.riverbankcomputing.com/software/pyqt/download or $pip install PySide2.
+PyQt5 or PySide2 (https://www.riverbankcomputing.com/software/pyqt/download or $pip install PySide2)
 
 # Run BioNanoAnalyst 
 
