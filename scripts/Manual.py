@@ -43,7 +43,7 @@ class Ui_Manual(object):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
-        self.manual_bn = QtGui.QPushButton(Manual)
+        self.manual_bn = QtWidgets.QPushButton(Manual)
         self.manual_bn.setGeometry(QtCore.QRect(650, 420, 75, 23))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))

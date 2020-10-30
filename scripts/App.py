@@ -165,7 +165,7 @@ class Main(QtWidgets.QMainWindow):
             self.ref=codecs.decode(str(ref)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.ref_input.setText(self.ref)
         else:
-            self.ref = unicode(QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)'))
+            self.ref = unicode(QtWidgets.QFileDialog.getOpenFileName(self, 'Select reference sequences', '','sequences (*fasta *fa *fna)')[0])
             self.ui.ref_input.setText(self.ref)
 
     def clear_ref(self):
@@ -195,7 +195,7 @@ class Main(QtWidgets.QMainWindow):
             self.bnx = codecs.decode(str(bnx)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.raw_input.setText(self.bnx)
         else:
-            self.bnx = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)'))
+            self.bnx = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select bnx file','','bnx file (*.bnx)')[0])
             self.ui.raw_input.setText(self.bnx)
 
     def clear_bnx(self):
@@ -211,7 +211,7 @@ class Main(QtWidgets.QMainWindow):
             try:
                 self.ui.raw_status_label.setStyleSheet('color: blue')
                 self.ui.raw_status_label.setText('Running...')
-                qApp.processEvents()
+                QtWidgets.QApplication.processEvents()
                 self.ui.raw_status_label.repaint()
                 self.run_assembler()
                 self.run_refAligner()
@@ -225,7 +225,7 @@ class Main(QtWidgets.QMainWindow):
                 self.ui.raw_status_label.setStyleSheet('color: red')
                 self.ui.raw_status_label.setText('Crashed !')
                 self.ui.raw_status_label.repaint()
-                qApp.processEvents()
+                QtWidgets.QApplication.processEvents()
                 QtWidgets.QMessageBox.question(self, 'Error !', 'Something is wrong, please check the error messages!',QtWidgets.QMessageBox.Ok)
 
 
@@ -243,7 +243,7 @@ class Main(QtWidgets.QMainWindow):
             self.xmap = codecs.decode(str(xmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.xmap_input.setText(self.xmap)
         else:
-            self.xmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)'))
+            self.xmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select xmap file','','xmap file (*.xmap)')[0])
             self.ui.xmap_input.setText(self.xmap)
 
     def clear_xmap(self):
@@ -256,7 +256,7 @@ class Main(QtWidgets.QMainWindow):
             self.rcmap = codecs.decode(str(rcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.rcmap_input.setText(self.rcmap)
         else:
-            self.rcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)'))
+            self.rcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select ref cmap file','','cmap file (*_r.cmap)')[0])
             self.ui.rcmap_input.setText(self.rcmap)
 
     def clear_rcmap(self):
@@ -269,7 +269,7 @@ class Main(QtWidgets.QMainWindow):
             self.qcmap = codecs.decode(str(qcmap)[1:-1].split(',')[0][2:-1],'unicode_escape')
             self.ui.qcmap_input.setText(self.qcmap)
         else:
-            self.qcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)'))
+            self.qcmap = unicode(QtWidgets.QFileDialog.getOpenFileName(self,'Select qry cmap file','','cmap file (*_q.cmap)')[0])
             self.ui.qcmap_input.setText(self.qcmap)
 
     def clear_qcmap(self):
@@ -613,7 +613,7 @@ class Main(QtWidgets.QMainWindow):
                                 self.ui.gridLayout_7.itemAt(items).widget().deleteLater()
                         except:
                                 pass
-                        mapping_status_view=QtGui.QGraphicsView(self.ui.mapping_status_frame)
+                        mapping_status_view=QtWidgets.QGraphicsView(self.ui.mapping_status_frame)
                         self.ui.gridLayout_7.addWidget(mapping_status_view, 0, 0, 1, 1)
                         try:
                             ## Start analysis
@@ -622,7 +622,7 @@ class Main(QtWidgets.QMainWindow):
                             ## Emit the running signal
                             self.ui.analyse_status_label.setStyleSheet('color: blue')
                             self.ui.analyse_status_label.setText('Running...')
-                            qApp.processEvents()
+                            QtWidgets.QApplication.processEvents()
                             self.ui.analyse_status_label.repaint()
                             self.running.BioNano_stats()
                             self.running.parse_fasta()
@@ -683,7 +683,7 @@ class Main(QtWidgets.QMainWindow):
                         self.ui.gridLayout_7.itemAt(items).widget().setParent(None)
                 except:
                     pass
-                mapping_status_view=QtGui.QGraphicsView(self.ui.mapping_status_frame)
+                mapping_status_view=QtWidgets.QGraphicsView(self.ui.mapping_status_frame)
                 self.ui.gridLayout_7.addWidget(mapping_status_view, 0, 0, 1, 1)
                 try:
                     ## Start analysis
@@ -692,7 +692,7 @@ class Main(QtWidgets.QMainWindow):
                     ## Emit the running signal
                     self.ui.analyse_status_label.setStyleSheet('color: blue')
                     self.ui.analyse_status_label.setText('Running...')
-                    qApp.processEvents()
+                    QtWidgets.QApplication.processEvents()
                     self.ui.analyse_status_label.repaint()
                     self.running.BioNano_stats()
                     self.running.parse_fasta()
@@ -972,12 +972,12 @@ class Main(QtWidgets.QMainWindow):
         except:
             pass
         try:
-            self.ui.textBrowser.append('filtered\t%s\t%.2f\t\t%.2f\t\t%.2f'%(filtered,filtered_len/1.0e6,filtered_len/1.0e4/ref_len,float(filtered)/ref_ctgs*100))
+            self.ui.textBrowser.append('Filtered\t%s\t%.2f\t\t%.2f\t\t%.2f'%(filtered,filtered_len/1.0e6,filtered_len/1.0e4/ref_len,float(filtered)/ref_ctgs*100))
         except:
             pass
         self.ui.textBrowser.append('Mapped\t%s\t%.2f\t\t%.2f\t\t%.2f'%(mapped,mapped_len/1.0e6,mapped_len/1.0e4/ref_len,float(mapped)/ref_ctgs*100))
         self.ui.textBrowser.append('BioNano\t%s\t%.2f\t\tNA\t\tNA\n'%(BN,BN_len))
-        self.ui.textBrowser.append('Note: The totoal length of Ns in the reference is %s Mb.\n'%ref_N)
+        self.ui.textBrowser.append('Note: The total length of Ns in the reference is %s Mb.\n'%ref_N)
         self.unqualified_len = unqualified_len
         self.mapped_len = mapped_len
         self.no_mapping_len = no_mapping_len
